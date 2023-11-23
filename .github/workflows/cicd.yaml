@@ -1,0 +1,29 @@
+name: Beispielworkflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Schritt 1 Job 1
+        run: echo "Hello from Job 1"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Schritt 1 Job 2
+        run: echo "Hello from Job 2"
+
+  parallel_jobs:
+    runs-on: ubuntu-latest
+    needs: [job1, job2]
+    strategy:
+      matrix:
+        job-idx: [1, 2]
+    steps:
+      - name: Paralleler Schritt
+        run: echo "Hello from Job ${{ matrix.job-idx }}"
